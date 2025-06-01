@@ -6,6 +6,8 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.lang.reflect.Method;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
@@ -76,4 +78,27 @@ class CarTest {
         car.setOwner("Peter Malashkin");
         assertArrayEquals(new String[]{"Pervushin Nikolay", "Peter Malashkin"}, car.getOwners().toArray());
     }
+
+    @Test
+    public void testPrivateMethod() {
+        try {
+            Method method = Car.class.getDeclaredMethod("testMethod", null);
+            method.setAccessible(true);
+            assertEquals("abd", method.invoke(car).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testPrivateMethodWithArgument(){
+        try {
+            Method method = Car.class.getDeclaredMethod("testMethod", String.class);
+            method.setAccessible(true);
+            assertEquals("abd", method.invoke(car,"abd").toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

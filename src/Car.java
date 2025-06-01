@@ -48,4 +48,10 @@ public class Car {
     public int testInt(int input) {
         return input + 4;
     }
+    private String testMethod(){
+        return "abd";
+    }
+    private String testMethod(String a){
+        return a;
+    }
 }
