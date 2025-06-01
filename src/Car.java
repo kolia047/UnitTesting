@@ -44,4 +44,8 @@ public class Car {
     public ArrayList<String> getOwners() {
         return owners;
     }
+
+    public int testInt(int input) {
+        return input + 4;
+    }
 }
