@@ -91,11 +91,11 @@ class CarTest {
     }
 
     @Test
-    public void testPrivateMethodWithArgument(){
+    public void testPrivateMethodWithArgument() {
         try {
             Method method = Car.class.getDeclaredMethod("testMethod", String.class);
             method.setAccessible(true);
-            assertEquals("abd", method.invoke(car,"abd").toString());
+            assertEquals("abd", method.invoke(car, "abd").toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,10 +104,17 @@ class CarTest {
     @ParameterizedTest
     @DisplayName("Test demonstrates how test data could be loaded from file")
     @CsvFileSource(resources = "/dev/hellojava/test-data.csv", delimiter = '|', numLinesToSkip = 1)
-    public void testNumbers(String input, String expected){
+    public void testNumbers(String input, String expected) {
         car.setNumber(input);
         assertEquals(expected, car.getNumber());
     }
 
+    @Test
+    void getTestData() {
+       Exception exception = assertThrows(Exception.class, () -> {
+            car.getDataFromRemoteServer();
+        });
+        assertEquals("error!!!", exception.getMessage());
+    }
 
 }
